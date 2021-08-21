@@ -36,6 +36,9 @@ class UsersTableSeeder extends Seeder
         $admin = new User();
         $admin->name = 'admin';
         $admin->email = 'admin@sample.com';
+        $admin->telepon = '085887755';
+        $admin->provinsi = 'Jawa Barat';
+        $admin->alamat = '-';
         $admin->password = bcrypt('password');
         $admin->save();
         $admin->attachRole($adminRole);
@@ -45,6 +48,9 @@ class UsersTableSeeder extends Seeder
         $user = new User();
         $user->name = 'user';
         $user->email = 'user@sample.com';
+        $user->telepon = '085887756';
+        $user->provinsi = 'Jawa Barat';
+        $user->alamat = '-';
         $user->password = bcrypt('password');
         $user->save();
         $user->attachRole($userRole);

@@ -7,7 +7,8 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    {{-- <title>{{ config('app.name', 'Laravel') }}</title> --}}
+    <title>E-REPORT | Sampaikan Laporan Anda.</title>
 
     <!-- Scripts -->
     <!-- <script src="{{ asset('js/app.js') }}" defer></script> -->
@@ -26,67 +27,77 @@
 		<!--begin::Global Stylesheets Bundle(used by all pages)-->
 		<link href="https://preview.keenthemes.com/craft/assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.5.0/font/bootstrap-icons.min.css"/>
+        @yield('css')
 </head>
 <body>
+    @include('alert')
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+        <div class="">
+            <div class="row g-0">
+                @guest
+                @else
+                <div class="col-md-3 min-vh-100 card sh-1">
+                    <div class="aside aside-default">
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav mr-auto">
-                    </ul>
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ms-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                            </li>
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
-                                </a>
+                    <div class="aside-logo flex-column-auto pt-9 pb-5" id="kt_aside_logo">
+						<!--begin::Logo-->
+						<a href="{{ route('dashboard') }}">
+							<img alt="Logo" src="{{ asset('img/logo.png') }}" class="max-h-50px logo-default" width="150">
+							<img alt="Logo" src="{{ asset('img/logo.png') }}" class="max-h-50px logo-minimize" width="150">
+						</a>
+						<!--end::Logo-->
+					</div>
 
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
+                    <div class="list-group list-group-flush list-admin">
+                    <a href="{{ route('dashboard') }}" class="list-group-item list-group-item-action clearfix">
+                        Dashboard
+                        <div class="bi bi-chevron-compact-right float-end"></div>
+                    </a>
+                    <a href="{{ route('lapor.index') }}" class="list-group-item list-group-item-action clearfix">
+                        Laporan
+                        <div class="bi bi-chevron-compact-right float-end"></div>
+                    </a>
+                    <a href="{{ route('lapor.map') }}" class="list-group-item list-group-item-action clearfix">
+                        Open map
+                        <div class="bi bi-chevron-compact-right float-end"></div>
+                    </a>
+                    <a href="{{ route('users') }}" class="list-group-item list-group-item-action clearfix">
+                        Users
+                        <div class="bi bi-chevron-compact-right float-end"></div>
+                    </a>
+                    <a href="{{ route('index') }}" target="_blank" class="list-group-item list-group-item-action clearfix">
+                        Preview web
+                        <div class="bi bi-chevron-compact-right float-end"></div>
+                    </a>
+                    <a href="javascript:void(0)" class="list-group-item list-group-item-action clearfix" data-bs-toggle="modal" data-bs-target="#modalOut">
+                        Keluar
+                        <div class="bi bi-chevron-compact-right float-end"></div>
+                    </a>
+                    </div>
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
-                    </ul>
+                    <!-- <div class="menu-item">
+									<a class="menu-link" href="/craft/layout-builder.html">
+										<span class="menu-icon">
+                                            <i class="bi bi-bootstrap-fill"></i>
+										</span>
+										<span class="menu-title title-2">Dashboard</span>
+									</a>
+								</div> -->
+                        
+                    </div>
+                </div>
+                @endguest
+                <div class="col-md">
+                    @yield('content')
                 </div>
             </div>
-        </nav>
-
-        <main class="">
-            @yield('content')
-        </main>
+        </div>
     </div>
-
-
     <script src="https://preview.keenthemes.com/craft/assets/plugins/global/plugins.bundle.js"></script>
     <script src="https://preview.keenthemes.com/craft/assets/js/scripts.bundle.js"></script>
     <!--end::Global Javascript Bundle-->
     <!--begin::Page Vendors Javascript(used by this page)-->
     <script src="https://preview.keenthemes.com/craft/assets/plugins/custom/prismjs/prismjs.bundle.js"></script>
+    @yield('js')
 </body>
 </html>

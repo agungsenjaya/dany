@@ -33,14 +33,19 @@ footer {
     color: #616161;
 }
 .title-1 {
-    font-weight: 600;
-    letter-spacing: 0.8px;
-    text-transform: uppercase;
+    font-weight: 400 !important;
 }
 .title-2 {
-    /* font-weight: 600; */
+    font-weight: 600 !important;
+}
+.title-3 {
+    font-weight: 700 !important;
+}
+.title-4 {
+    font-weight: 800 !important;
+}
+.sp-1{
     letter-spacing: 0.8px;
-    text-transform: uppercase;
 }
 .gray-1 {
     filter: grayscale(100%);;
@@ -48,3 +53,98 @@ footer {
 .op-1 {
     opacity: 0.5;
 }
+.p-takeover--grad {
+    background-color: #b70d22;
+    background-image: linear-gradient(to bottom left, rgba(119, 41, 83, 0.16) 0, rgba(119, 41, 83, 0.16) 49.9%, transparent 50%),linear-gradient(to bottom right, rgba(228, 228, 228, 0.5) 0, rgba(228, 228, 228, 0.5) 49.9%, transparent 50%),linear-gradient(to top left, white 0%, white 49.3%, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0) 100%),linear-gradient(
+-89deg
+, #b70d22 0%, #b70d22 42%, #b70d22 94%);
+    color: #fff;
+    align-items: center;
+    background-blend-mode: multiply,multiply,normal,normal;
+    background-position: top right,top left,right bottom -1px,left top;
+    background-repeat: no-repeat;
+    background-size: 74% 99.83%,68% 91%,103.8% 20.26%,100% 99.8%;
+    display: flex;
+    height: 35rem;
+    justify-content: flex-start;
+    margin: 0;
+}
+.hr-white{
+    height:4px;
+    width: 100px;
+    background:#fff
+}
+.space-m{
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+.space-xl{
+    padding-top: 80px;
+    padding-bottom: 80px;
+}
+.sh-1 {
+    box-shadow: 0 10px 30px 0 rgb(0 0 0 / 20%);
+}
+#map {
+    height:70vh;
+    z-index: 1;
+}
+  .map-container {
+    position: relative;
+  }
+  
+  .map-marker-centered {
+    background-image: url("https://img.icons8.com/fluency/48/000000/marker.png");
+    width: 50px;
+    height: 48px;
+    position: absolute;
+    z-index: 2;
+    left: calc(50% - 25px);
+    top: calc(50% - 50px);
+    transition: all 0.4s ease;
+  }
+    .hori-timeline .events {
+        border-top: 3px solid #e9ecef;
+    }
+    .hori-timeline .events .event-list {
+        display: block;
+        position: relative;
+        text-align: center;
+        padding-top: 70px;
+        margin-right: 0;
+    }
+    .hori-timeline .events .event-list:before {
+        content: "";
+        position: absolute;
+        height: 36px;
+        border-right: 2px dashed #dee2e6;
+        top: 0;
+    }
+    .hori-timeline .events .event-list .event-date {
+        position: absolute;
+        top: 38px;
+        left: 0;
+        right: 0;
+        width: 75px;
+        margin: 0 auto;
+        border-radius: 4px;
+        padding: 2px 4px;
+    }
+    @media (min-width: 1140px) {
+        .hori-timeline .events .event-list {
+            display: inline-block;
+            width: 24%;
+            padding-top: 45px;
+        }
+        .hori-timeline .events .event-list .event-date {
+            top: -12px;
+        }
+    }
+    .list-admin {
+        line-height: 2.6;
+        font-size: 1em;
+    }
+    .list-admin > a {
+        font-weight: 600;
+        background: transparent;
+    }

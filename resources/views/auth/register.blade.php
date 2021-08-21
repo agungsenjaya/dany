@@ -1,7 +1,6 @@
 @extends('layouts.app')
-
 @section('content')
-<div class="d-flex align-items-center min-vh-100 bg-light">
+<div class="d-flex align-items-center min-vh-100 bg-secondary space-m">
 <div class="container">
     <div class="row justify-content-center w-100">
         <div class="col-md-6">
@@ -34,6 +33,53 @@
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
 
                                 @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="mb-10">
+                            <label for="telepon" class="form-label">{{ __('Nomor Telepon') }}</label>
+
+                            <div class="">
+                                <input id="telepon" class="form-control @error('telepon') is-invalid @enderror" name="telepon" value="{{ old('telepon') }}" required autocomplete="telepon" autofocus>
+
+                                @error('telepon')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        
+                        <div class="mb-10">
+                            <label for="provinsi" class="form-label">{{ __('Provinsi Select') }}</label>
+
+                            <div class="">
+                                <select name="provinsi" class="form-select" required id="provinsi">
+                                    <option value="">-- Select Provinsi --</option>
+                                    @foreach($provinsi->provinsi as $prov)
+                                    <option value="{{ $prov->nama }}">{{ $prov->nama }}</option>
+                                    @endforeach
+                                </select>
+
+                                @error('provinsi')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="mb-10">
+                            <label for="alamat" class="form-label">{{ __('Alamat') }}</label>
+
+                            <div class="">
+                                <textarea class="form-control" required name="alamat" id="alamat" cols="30" rows="10"></textarea>
+
+                                @error('alamat')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
