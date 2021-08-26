@@ -60,8 +60,8 @@
                             <div class="">
                                 <select name="provinsi" class="form-select" required id="provinsi">
                                     <option value="">-- Select Provinsi --</option>
-                                    @foreach($provinsi->provinsi as $prov)
-                                    <option value="{{ $prov->nama }}">{{ $prov->nama }}</option>
+                                    @foreach($provinsi as $prov)
+                                    <option value="{{ $prov->name }}">{{ $prov->name }}</option>
                                     @endforeach
                                 </select>
 

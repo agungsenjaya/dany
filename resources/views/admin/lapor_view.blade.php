@@ -150,7 +150,7 @@ $open = "https://www.google.co.id/maps/dir/". $omn->lat .',' . $omn->lng;
 						@php
 						$foto = json_decode($lapor->foto);
 						@endphp
-                        <h3 class="title-4">Lampiran Foto</h3>
+                        <h3 class="title-3">Lampiran Foto</h3>
                         <br>
 						<div class="row" id="gallery">
 							@foreach($foto as $fot)
@@ -170,11 +170,35 @@ $open = "https://www.google.co.id/maps/dir/". $omn->lat .',' . $omn->lng;
                 </div>
                 <div class="card-footer">
                     <a href="javascript:void(0)" class="btn btn-light btn-sm me-3 open">Open Map</a>
-                    <a href="javascript:void(0)" class="btn btn-primary btn-sm">Update laporan</a>
+                    <a href="javascript:void(0)" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalUpdate">Update laporan</a>
                 </div>
                 </div>
                 </div>
 </section>
+<div class="modal fade" tabindex="-1" id="modalUpdate">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modal title</h5>
+
+                <!--begin::Close-->
+                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                    <span class="svg-icon svg-icon-2x"></span>
+                </div>
+                <!--end::Close-->
+            </div>
+
+            <div class="modal-body">
+                <p>Modal body text goes here.</p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 @section('css')
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" />
@@ -237,9 +261,8 @@ var routeControl = L.Routing.control({
 routeControl.on('routesfound', function (e) {
 	var routes = e.routes;
 	var summary = routes[0].summary;
-    $('.jarak').text(summary.totalDistance / 1000 + ' Km');
-    $('.waktu').text(Math.round(summary.totalTime % 3600 / 60) + 'Menit');
-	// alert('Total distance is ' + summary.totalDistance / 1000 + ' km and total time is ' + Math.round(summary.totalTime % 3600 / 60) + ' minutes');
+    $('.jarak').text(Math.round(summary.totalDistance / 1000) + ' Km');
+    $('.waktu').text(Math.round(summary.totalTime % 3600 / 60) + ' Menit');
 });
 
 var uri = '<?php echo $uri; ?>';
@@ -262,5 +285,24 @@ var uri = '<?php echo $uri; ?>';
       }
     }
   });
+
+  function bros(t){
+    t = Math.round(t / 30) * 30;
+    if (t > 86400) {
+        return Math.round(t / 3600) + ' ' + un.hours;
+    } else if (t > 3600) {
+        return Math.floor(t / 3600) + ' ' + un.hours + ' ' +
+            Math.round((t % 3600) / 60) + ' ' + un.minutes;
+    } else if (t > 300) {
+        return Math.round(t / 60) + ' ' + un.minutes;
+    } else if (t > 60) {
+        return Math.floor(t / 60) + ' ' + un.minutes +
+            (t % 60 !== 0 ? ' ' + (t % 60) + ' ' + un.seconds : '');
+    } else {
+        return t + ' ' + un.seconds;
+    }
+  }
+
+
 </script>
     @endsection
