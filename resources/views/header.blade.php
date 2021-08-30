@@ -24,8 +24,8 @@
             @endguest
           </li>
           <li><a href="{{ route('laporan') }}" class="nav-link text-white">Laporan Terbaru</a></li>
-          <li><a href="{{ route('statistik') }}" class="nav-link text-white">Statistik</a></li>
-          <li><a href="{{ route('statistik') }}" class="nav-link text-white">Cara lapor</a></li>
+          <li><a href="javascript:void(0)" class="nav-link text-white">Statistik</a></li>
+          <li><a href="{{ route('cara') }}" class="nav-link text-white">Cara lapor</a></li>
         </ul>
 
         <div class="text-end">

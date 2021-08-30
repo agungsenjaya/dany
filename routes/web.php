@@ -19,12 +19,14 @@ Route::get('about','ClientController@about')->name('about');
 Route::get('laporan','ClientController@laporan')->name('laporan');
 Route::get('contact','ClientController@contact')->name('contact');
 Route::get('statistik','ClientController@statistik')->name('statistik');
+Route::get('cara','ClientController@cara')->name('cara');
 Auth::routes();
 
 Route::group(['prefix' => 'user',  'middleware' => ['role:member']], function(){
     Route::get('home', 'HomeController@index')->name('home');
     Route::get('lapor', 'LaporController@lapor_client')->name('lapor.client');
-    Route::get('lapor/cancel/{id}', 'HomeController@lapor_can')->name('lapor.cancel');
+    // Route::get('lapor/cancel/{id}', 'HomeController@lapor_can')->name('lapor.cancel');
+    Route::post('lapor/cancel/{id}', 'HomeController@lapor_can')->name('lapor.cancel');
     Route::get('lapor/view/{id}', 'LaporController@lapor_client_view')->name('lapor.client.view');
     Route::post('/lapor/store','LaporController@store')->name('lapor.store');
 });

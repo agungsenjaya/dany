@@ -29,11 +29,26 @@ class HomeController extends Controller
         $lapor = Lapor::where('user_id', Auth::user()->id)->get();
         return view('home')->with('lapor',$lapor);
     }
-    public function lapor_can($id){
+    public function lapor_can(Request $request, $id){
         $data = Lapor::find($id);
-        $data->delete();
+        $data->status = 'dibatalkan';
+        $data->save();
+
         if ($data) {
-            return redirect()->route('home');
+            $report = Report::create([
+                'status' => 'dibatalkan',
+                'lapor_id' => $id,
+                'user_id' => $request->user,
+                'content' => 'User telah membatalkan laporan',
+            ]);
+            if ($report) {
+                Session::flash('success', 'Laporan anda berhasil di batalkan pada tanggal ' . date('d, M Y '));
+                return redirect()->back();
+            }
         }
+        // $data->delete();
+        // if ($data) {
+        //     return redirect()->route('home');
+        // }
     }
 }

@@ -30,7 +30,7 @@
         @yield('css')
 </head>
 <body>
-    @include('alert')
+    @include('modal')
     <div id="app">
         <div class="">
             <div class="row g-0">
@@ -54,11 +54,11 @@
                         <div class="bi bi-chevron-compact-right float-end"></div>
                     </a>
                     <a href="{{ route('lapor.index') }}" class="list-group-item list-group-item-action clearfix">
-                        Laporan
+                        Tabel laporan
                         <div class="bi bi-chevron-compact-right float-end"></div>
                     </a>
                     <a href="{{ route('lapor.map') }}" class="list-group-item list-group-item-action clearfix">
-                        Open map
+                        Map laporan
                         <div class="bi bi-chevron-compact-right float-end"></div>
                     </a>
                     <a href="{{ route('users') }}" class="list-group-item list-group-item-action clearfix">

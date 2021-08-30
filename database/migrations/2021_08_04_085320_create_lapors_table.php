@@ -23,7 +23,7 @@ class CreateLaporsTable extends Migration
             $table->enum('privacy',['public','private']);
             $table->string('foto')->nullable();
             $table->date('date');
-            $table->enum('status', ['lapor', 'verifikasi','proses','ditolak','selesai'])->default('lapor');
+            $table->enum('status', ['lapor', 'verifikasi','proses','ditolak','selesai','dibatalkan'])->default('lapor');
             $table->enum('kategori', ['agama', 'corona','kesehatan','lingkungan','keamanan','kecelakaan']);
             $table->longText('content');
             $table->timestamps();

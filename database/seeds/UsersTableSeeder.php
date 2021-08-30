@@ -37,7 +37,7 @@ class UsersTableSeeder extends Seeder
         $admin->name = 'admin';
         $admin->email = 'admin@sample.com';
         $admin->telepon = '085887755';
-        $admin->provinsi = 'Jawa Barat';
+        $admin->provinsi = 'JAWA BARAT';
         $admin->alamat = '-';
         $admin->password = bcrypt('password');
         $admin->save();
@@ -49,7 +49,7 @@ class UsersTableSeeder extends Seeder
         $user->name = 'user';
         $user->email = 'user@sample.com';
         $user->telepon = '085887756';
-        $user->provinsi = 'Jawa Barat';
+        $user->provinsi = 'JAWA BARAT';
         $user->alamat = '-';
         $user->password = bcrypt('password');
         $user->save();

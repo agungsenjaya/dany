@@ -23,4 +23,7 @@ class ClientController extends Controller
     {
         return view('client.about');
     }
+    public function cara() {
+        return view('client.cara');
+    }
 }

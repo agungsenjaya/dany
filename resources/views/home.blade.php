@@ -3,7 +3,7 @@ $no = 1;
 @endphp
 @extends('index')
 @section('content')
-@include('alert')
+@include('modal')
 {{-- <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">

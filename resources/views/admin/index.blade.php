@@ -17,27 +17,27 @@
                 <div class="row">
                     <div class="col-md">
                         <h4 class="title-3">Total Laporan</h4>
-                        <h1 class="display-4 text-primary">000</h1>
+                        <h1 class="display-4 text-primary">{{ counTing(count($lapor)) }}</h1>
                         <p class="text-gray-500">Total keseluruhan laporan yang saat ini dalam sistem</p>
                     </div>
                     <div class="col-md border-start">
                     <div class="ps-3">
-                        <h4 class="title-3">Laporan Active</h4>
-                        <h1 class="display-4 text-primary">000</h1>
+                        <h4 class="title-3">Laporan Proses</h4>
+                        <h1 class="display-4 text-primary">{{ counTing(count($proses)) }}</h1>
                         <p class="text-gray-500">Total laporan yang saat ini sedang di proses</p>
                     </div>
                     </div>
                     <div class="col-md border-start">
                     <div class="ps-3">
                         <h4 class="title-3">Laporan Selesai</h4>
-                        <h1 class="display-4 text-primary">000</h1>
+                        <h1 class="display-4 text-primary">{{ counTing(count($selesai)) }}</h1>
                         <p class="text-gray-500">Total laporan yang telah terselaikan</p>
                     </div>
                     </div>
                     <div class="col-md border-start">
                     <div class="ps-3">
                         <h4 class="title-3">Total Users</h4>
-                        <h1 class="display-4 text-primary">000</h1>
+                        <h1 class="display-4 text-primary">{{ counTing(count($user)) }}</h1>
                         <p class="text-gray-500">Total pendaftar yang saat ini masuk dalam sistem</p>
                     </div>
                     </div>

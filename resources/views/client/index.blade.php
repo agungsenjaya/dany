@@ -13,27 +13,25 @@
 </section>
 <section class="position-relative pb-10" style="margin-top:-100px">
 	<div class="container">
+    <form method="post" action="{{ route('lapor.store') }}" enctype="multipart/form-data">
+    @csrf
 		<div class="col-md-8 offset-md-2">
+      <div class="position-relative">
 			<div class="card sh-1 rounded-0">
 				<div class="card-body">
-        <form method="post" action="{{ route('lapor.store') }}" enctype="multipart/form-data">
-          @csrf
           @guest
           @else
           <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
           @endguest
           <input type="hidden" name="lat">
           <input type="hidden" name="lng">
-        <div class="swiper-container mySwiper">
+          <div class="swiper mySwiper swiper-initialized swiper-horizontal swiper-pointer-events">
       <div class="swiper-wrapper">
         <div class="swiper-slide p-1">
-          
-      <!-- <div class="swiper-button-next"></div>
-      <div class="swiper-button-prev"></div> -->
       @include('alert')
       @if($errors->any())
-    {!! implode('', $errors->all('<div>:message</div>')) !!}
-@endif
+          {!! implode('', $errors->all('<div>:message</div>')) !!}
+      @endif
 					<div class="p-4 bg-primary mb-3">
 						<h4 class="title-4 text-white m-0 text-capitalize">Sampaikan laporan anda</h4>
 					</div>
@@ -57,14 +55,6 @@
               </label>
             </div>
             </div>
-              {{--<div class="col-md border-start border-primary">
-              <div class="form-check" data-bs-toggle="tooltip" data-bs-custom-class="tooltip-dark" data-bs-placement="top" title="Tipe laporan seputar informasi kejadian.">
-              <input class="form-check-input" type="radio" name="tipe" id="flexRadioDefault3" value="Informasi">
-              <label class="form-check-label title-2 sp-1 text-uppercase" for="flexRadioDefault3">
-                Informasi
-              </label>
-            </div>
-            </div>--}}
             
             </div>
             </div>
@@ -81,10 +71,6 @@
 						<div class="mb-4">
 							<select name="kategori" id="" class="form-select" required>
 								<option value="">Pilih kategori laporan Anda *</option>
-								{{--<option value="agama">Agama</option>
-								<option value="corona">Corona Virus</option>
-								<option value="kesehatan">Kesehatan</option>
-								<option value="lingkungan">Lingkungan</option>--}}
 								<option value="keamanan">Keamanan</option>
 								<option value="kecelakaan">Kecelakaan</option>
 							</select>
@@ -151,10 +137,27 @@
             </div>
       </div>
     </div>
-    </form>
 				</div>
 			</div>
+      @guest
+      <div class="position-absolute" style="top:0;bottom:0;right:0;left:0;z-index:1">
+        <div class="bg-before h-100 d-flex align-items-center">
+          <div class="p-4 text-center w-100">
+            <h1 class="title-4">Buat laporan anda</h1>
+            <p class="">Untuk melakukan laporan silahkan login <br> atau register akun lapor anda, Terima kasih.</p>
+            <a href="{{ route('login') }}" class="btn btn-primary">Login akun</a>
+            <a href="{{ route('register') }}" class="btn btn-primary ms-2">Daftar Akun</a>
+          </div>
+        </div>
+      </div>
+      @else
+      @endguest
+			</div>
+      
+
+
 		</div>
+    </form>
 	</div>
 </section>
 <section class="space-m">
@@ -253,7 +256,6 @@
    </style>
 @endsection
 @section('js')
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.min.js"></script>
    <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.74.0/dist/L.Control.Locate.min.js"></script>
    <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.74.0/dist/L.Control.Locate.min.js" charset="utf-8"></script>
@@ -352,6 +354,7 @@ map.on('moveend', function() {
 
 var swiper = new Swiper(".mySwiper", {
         noSwiping: true,
+        slidesPerView: 1,
         // speed: 1,
         navigation: {
           nextEl: ".go-next",

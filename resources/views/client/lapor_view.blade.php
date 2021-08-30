@@ -50,14 +50,45 @@
 															<div class="pe-3 ">
 																<p class="fs-5 mb-0">Laporan terkirim</p>
 																<div class="mt-1 text-gray-500">
-                                                                    Laporan anda berhasil terkirim menunggu verifikasi.
+																	{{ $lapor->created_at }} - Laporan anda berhasil terkirim menunggu verifikasi.
                                                                 </div>
 															</div>
 															<!--end::Title-->
 														</div>
 														<!--end::Section-->
 													</div>
-													@if(count($report))
+													@if($report)
+													@foreach($report as $rep)
+													<div class="d-flex flex-stack pb-10">
+														<!--begin::Section-->
+														<div class="d-flex">
+															<!--begin::Symbol-->
+															<div class="symbol symbol-35px me-5 mt-2">
+																<span class="symbol-label bg-light-primary">
+																	<!--begin::Svg Icon | path: icons/duotone/Home/Library.svg-->
+																	<span class="svg-icon svg-icon-3">
+																		<i class="bi bi-check2-all h1 text-primary"></i>
+																	</span>
+																	<!--end::Svg Icon-->
+																</span>
+															</div>
+															<!--end::Symbol-->
+															<!--begin::Title-->
+															<div class="pe-3 ">
+																<p class="fs-5 mb-0">Laporan {{ $rep->status }}</p>
+																<div class="mt-1 text-gray-500">
+																	@if($rep->status)
+                                                                    {{ $rep->created_at }} - {{ $rep->content }}
+																	@endif
+                                                                </div>
+															</div>
+															<!--end::Title-->
+														</div>
+														<!--end::Section-->
+													</div>
+													@endforeach
+													@endif
+													{{-- @if(count($report))
 													@if($report[0]->status == 'ditolak')
 													<div class="d-flex flex-stack pb-10">
 														<!--begin::Section-->
@@ -165,7 +196,7 @@
 													</div>
 													@endif
 													@endif
-													@endif
+													@endif --}}
 
 													<!--end::Item-->
 												</div>
@@ -175,6 +206,7 @@
                 
             </div>
             <div class="col-md-8">
+			@include('alert')
             <div class="card sh-1">
                 <div class="card-header d-flex justify-content-between">
                     <div class="card-title">
@@ -292,7 +324,12 @@
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                <a href="{{ route('lapor.cancel',['id' => $lapor -> id ]) }}" class="btn btn-primary">Ya, batalkan</a>
+                <!-- <a href="{{ route('lapor.cancel',['id' => $lapor -> id ]) }}" class="btn btn-primary">Ya, batalkan</a> -->
+				<form action="{{ route('lapor.cancel',['id' => $lapor -> id]) }}" method="POST">
+					@csrf
+					<input type="hidden" name="user" value="{{ Auth::user()->id }}">
+					<button type="submit" class="btn btn-primary">Ya, batalkan</button>
+				</form>
             </div>
         </div>
     </div>

@@ -73,6 +73,7 @@ $open = "https://www.google.co.id/maps/dir/". $omn->lat .',' . $omn->lng;
                             <div class="map h-100 bg-light rounded" id="map"></div>
                         </div>
                         <div class="col-md-6">
+                        @include('alert')
                         <table class="table table-row-dashed table-row-gray-300 border-bottom">
                     <tr>
                         <td>Judul</td>
@@ -170,7 +171,10 @@ $open = "https://www.google.co.id/maps/dir/". $omn->lat .',' . $omn->lng;
                 </div>
                 <div class="card-footer">
                     <a href="javascript:void(0)" class="btn btn-light btn-sm me-3 open">Open Map</a>
+                    @if($lapor->status == 'dibatalkan')
+                    @else
                     <a href="javascript:void(0)" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalUpdate">Update laporan</a>
+                    @endif
                 </div>
                 </div>
                 </div>
@@ -179,7 +183,7 @@ $open = "https://www.google.co.id/maps/dir/". $omn->lat .',' . $omn->lng;
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Modal title</h5>
+            <h3 class="modal-title title-4">Notifications</h3>
 
                 <!--begin::Close-->
                 <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
@@ -187,22 +191,38 @@ $open = "https://www.google.co.id/maps/dir/". $omn->lat .',' . $omn->lng;
                 </div>
                 <!--end::Close-->
             </div>
-
+            <form action="{{ route('lapor.update', ['id' => $lapor -> id]) }}" method="POST">
             <div class="modal-body">
-                <p>Modal body text goes here.</p>
+                    @csrf
+                    <input type="hidden" name="user" value="{{ Auth::user()->id }}">
+                    <div class="mb-3">
+                    <label for="" class="form-label">Status Laporan</label>
+                    <select name="status" id="" class="form-select" required>
+                        <option value="">-- Select Options --</option>
+                        <option value="verifikasi">verifikasi</option>
+                        <option value="proses">proses</option>
+                        <option value="ditolak">ditolak</option>
+                        <option value="selesai">selesai</option>
+                    </select>
+            </div>
+            <!-- <div class="mb-3">
+                <label for="" class="form-label">Keterangan Status (optional)</label>
+                <textarea name="content" id="" cols="30" rows="10" class="form-control" placeholder="Masukan keterangan"></textarea>
+            </div> -->
             </div>
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="submit" class="btn btn-primary">Update Laporan</button>
             </div>
+            </form>
         </div>
     </div>
 </div>
 @endsection
 @section('css')
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.min.css"/>
    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
 
    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.74.0/dist/L.Control.Locate.mapbox.min.css">

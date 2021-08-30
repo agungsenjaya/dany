@@ -34,24 +34,46 @@ class LaporController extends Controller
                     $file->move(public_path().'/img/lapor/', $name);  
                     $foto[] = $name;  
                 }
-            }
-            $lng = $request->lng;
-            $lat = $request->lat;
-            $data = Lapor::create([
-                'user_id' => $request->user_id,
-                'uniq' => $request->user_id . '-' . Str::random(15),
-                'judul' => $request->judul,
-                'content' => $request->content,
-                'date' => $request->date,
-                'tipe' => $request->tipe,
-                'kategori' => $request->kategori,
-                'privacy' => $request->privacy,
-                'lokasi' => json_encode(compact("lng", "lat")),
-                'foto' => json_encode($foto),
-            ]);
-            if ($data) {
-                Session::flash('success', 'Laporan anda berhasil dikirim,untuk melihat status laporan silahkan cek pada tabel laporan di halaman profil anda, Terima kasih.');
-                return redirect()->back();
+
+                $lng = $request->lng;
+                $lat = $request->lat;
+                $data = Lapor::create([
+                    'user_id' => $request->user_id,
+                    'uniq' => $request->user_id . '-' . Str::random(15),
+                    'judul' => $request->judul,
+                    'content' => $request->content,
+                    'date' => $request->date,
+                    'tipe' => $request->tipe,
+                    'kategori' => $request->kategori,
+                    'privacy' => $request->privacy,
+                    'lokasi' => json_encode(compact("lng", "lat")),
+                    'foto' => json_encode($foto),
+                ]);
+                if ($data) {
+                    Session::flash('success', 'Laporan anda berhasil dikirim,untuk melihat status laporan silahkan cek pada tabel laporan di halaman profil anda, Terima kasih.');
+                    return redirect()->back();
+                }
+
+            }else{
+
+                $lng = $request->lng;
+                $lat = $request->lat;
+                $data = Lapor::create([
+                    'user_id' => $request->user_id,
+                    'uniq' => $request->user_id . '-' . Str::random(15),
+                    'judul' => $request->judul,
+                    'content' => $request->content,
+                    'date' => $request->date,
+                    'tipe' => $request->tipe,
+                    'kategori' => $request->kategori,
+                    'privacy' => $request->privacy,
+                    'lokasi' => json_encode(compact("lng", "lat")),
+                ]);
+                if ($data) {
+                    Session::flash('success', 'Laporan anda berhasil dikirim,untuk melihat status laporan silahkan cek pada tabel laporan di halaman profil anda, Terima kasih.');
+                    return redirect()->back();
+                }
+
             }
         }
     }
@@ -69,15 +91,34 @@ class LaporController extends Controller
     public function lapor_update(Request $request, $id){
         $lapor = Lapor::find($id);
         $validator = Validator::make($request->all(), [
-            'judul' => 'required|max:255',
-            'content' => 'required',
+            'status' => 'required',
         ]);
         if ($validator->fails()) {
             Session::flash('failed', 'Gagal, coba periksa kembali');
             return redirect()->back();
         }else{
-            Session::flash('success', 'Gagal, coba periksa kembali');
-            return redirect()->route();
+            $content;
+            if ($request->status == 'verifikasi') {
+                $content = 'Laporan anda telah diverifikasi menuggu keputusan proses.';
+            }elseif ($request->status == 'proses') {
+                $content = 'Laporan anda sedang diproses dan ditindak lanjuti.';
+            }elseif ($request->status == 'ditolak') {
+                $content = 'Mohon maaf, laporan anda ditolak oleh team kami.';
+            }elseif ($request->status == 'selesai') {
+                $content = 'Laporan anda telah selesai diproses, terima kasih.';
+            }
+            $report = Report::create([
+                'lapor_id'  => $id,
+                'user_id'  => $request->user,
+                'status'  => $request->status,
+                'content'  => $content,
+            ]);
+            if ($report) {
+                $lapor->status = $request->status;
+                $lapor->save();
+            }
+            Session::flash('success', 'Status laporan berhasil diupdate, terima kasih');
+            return redirect()->back();
         }
     }
     public function lapor_client()
@@ -90,6 +131,10 @@ class LaporController extends Controller
         $report = Report::where('lapor_id', $lapor->id)->get();
         // $report = count($data);
         return view('client.lapor_view', compact('lapor','report'));
+    }
+
+    public function lapor_map(){
+        return view('admin.lapor_map');
     }
     
 }

@@ -17,8 +17,8 @@ class CreateReportsTable extends Migration
             $table->bigIncrements('id');
             $table->integer('lapor_id');
             $table->integer('user_id');
-            $table->enum('status',['verifikasi','proses','ditolak','selesai']);
-            $table->longText('content');
+            $table->enum('status',['verifikasi','proses','ditolak','selesai','dibatalkan']);
+            $table->longText('content')->nullable();
             $table->timestamps();
         });
     }
