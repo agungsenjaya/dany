@@ -16,7 +16,9 @@ class AdminController extends Controller
     public function index(){
         $proses = Lapor::where('status','proses')->get();
         $selesai = Lapor::where('status','selesai')->get();
-        return view('admin.index',compact('proses','selesai'))->with('lapor', Lapor::all())->with('user', User::all());
+        $ditolak = Lapor::where('status','ditolak')->get();
+        $verifikasi = Lapor::where('status','verifikasi')->get();
+        return view('admin.index',compact('proses','selesai','ditolak','verifikasi'))->with('lapor', Lapor::all())->with('user', User::all());
     }
     public function users(){
         return view('admin.user')->with('user', User::all());

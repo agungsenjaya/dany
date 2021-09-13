@@ -145,8 +145,12 @@ footer {
         font-size: 1em;
     }
     .list-admin > a {
-        font-weight: 600;
+        /* font-weight: 600; */
+        color:#ffffff;
         background: transparent;
+    }
+    .list-admin > a:hover {
+        border-radius: 0.475rem !important;
     }
     .bg-before {
         background-image:linear-gradient(180deg,#ffffff2e 5%,#ffffff);

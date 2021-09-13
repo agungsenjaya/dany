@@ -16,8 +16,8 @@
                 </ul>
                 </div>
             </div>
-            <div class="card-body">
-            <div class="map vh-100 bg-light rounded" id="map"></div>
+            <div class="">
+            <div class="map vh-100 bg-light rounded-bottom" id="map"></div>
                 </div>
                 </div>
                 </div>
@@ -40,6 +40,10 @@
      .leaflet-routing-container {
     display: none !important;
      }
+     .leaflet-popup-content{
+       width:150px;
+       padding-top: 2em;
+     }
    </style>
 @endsection
 @section('js')
@@ -49,9 +53,9 @@
    <script src="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.js"></script>
   <script src="//unpkg.com/leaflet-gesture-handling"></script>
   <script>
-
 var map = L.map('map', {
 	center: [0.7893, 113.9213],
+	// center: L.latLng(51.509865, -0.118092),
 	zoom: 5,
   gestureHandling: true
 });
@@ -64,7 +68,24 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
 	accessToken: 'pk.eyJ1IjoiYWd1bmdzZW5qYXlhIiwiYSI6ImNqbGVnMjhtYTBpOXEza3F6NzI4M2RmbHAifQ.1WV_fgbmd1eMI4C444BDqQ'
 }).addTo(map);
 
-var primary = new L.marker([-6.921205, 106.926501]).addTo(map);
+
+var LeafIcon = L.Icon.extend({
+  options: {
+    iconSize:     [38, 48],
+    iconAnchor:   [22, 60],
+    popupAnchor:  [-3, -56]
+  }
+});
+
+var client = new LeafIcon({
+  iconUrl: "{{ asset('img/client.png') }}",
+});
+
+var master = new LeafIcon({
+  iconUrl: "{{ asset('img/master.png') }}",
+});
+
+var primary = new L.marker([-6.921205, 106.926501],{icon: master}).addTo(map);
 
 $.ajax({
   type: "GET",
@@ -75,28 +96,37 @@ $.ajax({
   }}).done(function(response) {
     var second;
     $.each(response, function (index, value) { 
-      var lokasi = JSON.parse(value.lokasi);
-      second = new L.marker([lokasi.lat,lokasi.lng]).on('click', getLoc).addTo(map);
-      // console.log(lokasi.lng);
+      if (value.status != 'selesai' && value.status != 'dibatalkan') {
+        var lokasi = JSON.parse(value.lokasi);
+        second = new L.marker([lokasi.lat,lokasi.lng],{icon: client}).on('click', getLoc).bindPopup(`<i class="bi bi-person-circle text-primary fa-3x"></i><br><br><span class="text-uppercase">${value.tipe}</span><br><hr>${value.judul}<br><i class="bi bi-check-circle me-2 text-primary"></i><span class="text-primary">${value.kategori}</span><br><br><a class="small" href="{{ url('admin/lapor/view') . '/' }}${value.uniq}">Detail Lapor</a>`).addTo(map);
+      }
     });
   });
 
+  var cinta = false;
+
+
   function getLoc(e) {
-    // map.removeLayer(marker);
+    map.setView(e.target.getLatLng(),10);
+    // if (cinta == true) {
+    //   var routeControl = L.Routing.control({
+    //   waypoints: [L.latLng(e.latlng.lat, e.latlng.lng), L.latLng(-6.921205, 106.926501), ],
+    //   lineOptions: {addWaypoints: false},
+    // }).addTo(map);
+    // }else{
+    //   var routeControl = L.Routing.control({
+    //   waypoints: [L.latLng(e.latlng.lat, e.latlng.lng), L.latLng(-6.921205, 106.926501), ],
+    //   lineOptions: {addWaypoints: false},
+    // }).addTo(map);
+    // cinta = true;
+    // }
 
-    var routeControl = L.Routing.control({
-      waypoints: [L.latLng(e.latlng.lat, e.latlng.lng), L.latLng(-6.921205, 106.926501), ],
-      lineOptions: {addWaypoints: false},
-    }).addTo(map);
-
-    // routeControl.spliceWaypoints(0, 2);
     // routeControl.on('routesfound', function (e) {
     //   var routes = e.routes;
     //   var summary = routes[0].summary;
     //     $('.jarak').text(Math.round(summary.totalDistance / 1000) + ' Km');
     //     $('.waktu').text(Math.round(summary.totalTime % 3600 / 60) + ' Menit');
     // });
-
   }
 
   </script>

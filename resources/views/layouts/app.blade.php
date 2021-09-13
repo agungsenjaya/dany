@@ -36,14 +36,14 @@
             <div class="row g-0">
                 @guest
                 @else
-                <div class="col-md-3 min-vh-100 card sh-1">
+                <div class="col-md-3 min-vh-100 bg-primary">
                     <div class="aside aside-default">
 
                     <div class="aside-logo flex-column-auto pt-9 pb-5" id="kt_aside_logo">
 						<!--begin::Logo-->
 						<a href="{{ route('dashboard') }}">
-							<img alt="Logo" src="{{ asset('img/logo.png') }}" class="max-h-50px logo-default" width="150">
-							<img alt="Logo" src="{{ asset('img/logo.png') }}" class="max-h-50px logo-minimize" width="150">
+							<img alt="Logo" src="{{ asset('img/logo-white.png') }}" class="max-h-50px logo-default" width="150">
+							<img alt="Logo" src="{{ asset('img/logo-white.png') }}" class="max-h-50px logo-minimize" width="150">
 						</a>
 						<!--end::Logo-->
 					</div>
@@ -51,27 +51,27 @@
                     <div class="list-group list-group-flush list-admin">
                     <a href="{{ route('dashboard') }}" class="list-group-item list-group-item-action clearfix">
                         Dashboard
-                        <div class="bi bi-chevron-compact-right float-end"></div>
+                        <div class="bi bi-grid-fill float-end"></div>
                     </a>
                     <a href="{{ route('lapor.index') }}" class="list-group-item list-group-item-action clearfix">
                         Tabel laporan
-                        <div class="bi bi-chevron-compact-right float-end"></div>
+                        <div class="bi bi-people-fill float-end"></div>
                     </a>
                     <a href="{{ route('lapor.map') }}" class="list-group-item list-group-item-action clearfix">
                         Map laporan
-                        <div class="bi bi-chevron-compact-right float-end"></div>
+                        <div class="bi bi-compass-fill float-end"></div>
                     </a>
                     <a href="{{ route('users') }}" class="list-group-item list-group-item-action clearfix">
                         Users
-                        <div class="bi bi-chevron-compact-right float-end"></div>
+                        <div class="bi bi-person-circle float-end"></div>
                     </a>
                     <a href="{{ route('index') }}" target="_blank" class="list-group-item list-group-item-action clearfix">
                         Preview web
-                        <div class="bi bi-chevron-compact-right float-end"></div>
+                        <div class="bi bi-globe float-end"></div>
                     </a>
                     <a href="javascript:void(0)" class="list-group-item list-group-item-action clearfix" data-bs-toggle="modal" data-bs-target="#modalOut">
                         Keluar
-                        <div class="bi bi-chevron-compact-right float-end"></div>
+                        <div class="bi bi-box-arrow-in-right float-end"></div>
                     </a>
                     </div>
 

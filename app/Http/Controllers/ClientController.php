@@ -13,7 +13,8 @@ class ClientController extends Controller
     }
     public function laporan()
     {
-        return view('client.laporan');
+        $data = Lapor::where('privacy', 'public')->get();
+        return view('client.laporan',compact('data'));
     }
     public function about()
     {

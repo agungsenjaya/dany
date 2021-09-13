@@ -275,8 +275,24 @@ function getAddress(e,w){
     });
 };
 
+var LeafIcon = L.Icon.extend({
+  options: {
+    iconSize:     [38, 48],
+    iconAnchor:   [22, 60],
+    popupAnchor:  [-3, -56]
+  }
+});
+
+var client = new LeafIcon({
+  iconUrl: "{{ asset('img/client.png') }}",
+});
+
+var master = new LeafIcon({
+  iconUrl: "{{ asset('img/master.png') }}",
+});
+
 var routeControl = L.Routing.control({
-	waypoints: [L.latLng('<?php echo $omn->lat ?>', '<?php echo $omn->lng ?>'), L.latLng(-6.921205, 106.926501), ],
+	waypoints: [L.latLng('<?php echo $omn->lat ?>', '<?php echo $omn->lng ?>',{icon : client}), L.latLng(-6.921205, 106.926501,{icon : master}), ],
 }).addTo(map);
 routeControl.on('routesfound', function (e) {
 	var routes = e.routes;
